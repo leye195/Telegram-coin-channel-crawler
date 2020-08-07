@@ -85,7 +85,26 @@ async def main(phone):
                             now = datetime.now(timezone.utc)
                             diff = (now-date).seconds
                             if(diff<=60):
-                                print("new notice from binance")
+                                print(title)
+            elif("업비트(Upbit)" in title):
+                if("[거래] 원화" in title and "마켓" in title and "신규" in title):
+                    symbols = list(filter(extractSymbol,re.split("[,:;\- \s \]\[ ㄱ-ㅎ|ㅏ-ㅣ|가-힣(.*)$]",title)))
+                    for symbol in symbols:
+                        upbit_notice = db.upbitnotices.find_one({"coin":symbol})
+                        if(upbit_notice is None):
+                            now = datetime.now(timezone.utc)
+                            db.upbitnotices.insert_one({"coin":symbol,"title":title,"keyword":"[거래]","checked":True,"createdAt":now.strftime("%Y-%m-%S %H:%M:%S")})
+                            print(title)
+                elif("[이벤트]" in title and "원화마켓" in title and ("오픈" in title or "지원" in title or "상장" in title) 
+                and "결과" not in title and "당첨" not in title and "안내" not in title and "완료" not in title and "종료" not in title):
+                    symbols = list(filter(extractSymbol,re.split("[,:;\- \s \]\[ ㄱ-ㅎ|ㅏ-ㅣ|가-힣(.*)$]",title)))
+                    for symbol in symbols:
+                        upbit_notice = db.upbitnotices.find_one({"coin":symbol})
+                        if(upbit_notice is None):
+                            now = datetime.now(timezone.utc)
+                            db.upbitnotices.insert_one({"coin":symbol,"title":title,"keyword":"[거래]","checked":True,"createdAt":now.strftime("%Y-%m-%S %H:%M:%S")})
+                            print(title)
+
         sleep(2)
 
 with client:
