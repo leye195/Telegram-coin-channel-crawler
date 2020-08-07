@@ -1,4 +1,4 @@
-# Telegram 코인 공지방 그룹 메시지 Crawler
+# Telegram 거래소 공지방 그룹 메시지 Crawler
 
 - python, telethon 활용
 
