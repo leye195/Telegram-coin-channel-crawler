@@ -29,3 +29,8 @@ pip3 install -r requirements.txt
 ```
 python3 run.py
 ```
+
+## 참고
+
+- https://medium.com/better-programming/how-to-get-data-from-telegram-82af55268a4b
+- https://docs.telethon.dev/en/latest/
